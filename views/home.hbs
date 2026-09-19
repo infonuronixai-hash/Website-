@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> head}}
+</head>
+<body>
+  {{> navbar}}
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="reveal in-view">
+        <span class="eyebrow">AI &middot; XR &middot; Web &middot; Cloud &middot; Robotics</span>
+        <h1>Engineering the <span class="gradient-text">Future</span> Through Convergent Technology</h1>
+        <p>
+          Vaibhava Tech is a technology and innovation startup building
+          niche products and solutions across Agriculture, Education
+          and Industry &mdash; powered by AI, Extended Reality, Web and Cloud
+          technologies.
+        </p>
+        <div class="hero-actions">
+          <a href="/contact" class="btn btn-primary">Talk to Us</a>
+          <a href="/solutions" class="btn btn-outline">Explore Solutions</a>
+        </div>
+
+        <div class="tech-pills">
+          {{#each techStack}}
+            <span class="tech-pill">{{this}}</span>
+          {{/each}}
+        </div>
+      </div>
+
+      <div class="hero-visual reveal in-view">
+        <div class="glow-ring"></div>
+        <img src="/public/images/tech-ecosystem.png" alt="Vaibhava Tech ecosystem: AI, Cloud, XR, Robotics, Agriculture and Enterprise technologies" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="kicker">What We Build</span>
+        <h2>Technology &amp; Product</h2>
+        <p>
+          We develop products and solutions across seven high-impact
+          technology areas, applied to real-world challenges.
+        </p>
+      </div>
+
+      <div class="grid grid-4 reveal">
+        {{#each focusAreas}}
+          <a href="{{this.link}}" class="card focus-card">
+            <div class="focus-media">
+              <img src="/public/images/{{this.image}}" alt="{{this.title}}" />
+              <span class="focus-badge">{{initial this.icon}}</span>
+            </div>
+            <div class="focus-body">
+              <h3>{{this.title}}</h3>
+              <p>{{this.description}}</p>
+              <span class="focus-arrow">&rarr;</span>
+            </div>
+          </a>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split reveal">
+        <div class="framed-media">
+          <span class="caption">AI-Powered Innovation</span>
+          <img src="/public/images/team-ai-innovation.jpg" alt="Team collaborating with AI-powered tools" />
+        </div>
+        <div class="prose">
+          <span class="kicker">Sectors We Serve</span>
+          <h2 style="font-size:2rem; margin:0 0 16px;">Solving real problems across Agriculture, Education, Industry &amp; Defence</h2>
+          <p>
+            Our long-term objective is to make advanced technology practical,
+            accessible, scalable and purpose-driven &mdash; helping
+            organizations, institutions and communities build the solutions
+            of tomorrow.
+          </p>
+          <ul class="tag-list">
+            {{#each sectors}}
+              <li>{{this}}</li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-banner reveal">
+        <h2>Let&rsquo;s engineer your next breakthrough</h2>
+        <p>
+          Whether it&rsquo;s an AI-powered EdTech lab, an XR training
+          simulator, or an enterprise ERP/CRM platform &mdash; our team is
+          ready to help.
+        </p>
+        <div class="hero-actions">
+          <a href="/contact" class="btn btn-primary">Get in Touch</a>
+          <a href="/about" class="btn btn-outline">Learn About Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{> footer}}
+</body>
+</html>
