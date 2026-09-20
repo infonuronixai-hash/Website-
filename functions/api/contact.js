@@ -2,6 +2,42 @@ function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+function escapeHtml(value) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+async function sendNotificationEmail(env, lead) {
+  if (!env.RESEND_API_KEY) return;
+
+  const rows = [
+    ['Name', lead.name],
+    ['Email', lead.email],
+    ['Phone', lead.phone || '-'],
+    ['Organization', lead.organization || '-'],
+  ]
+    .map(([label, value]) => `<p><strong>${label}:</strong> ${escapeHtml(value)}</p>`)
+    .join('');
+
+  await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: 'Vaibhava Tech Website <no-reply@vaibhavatech.com>',
+      to: ['info@vaibhavatech.com'],
+      reply_to: lead.email,
+      subject: `New enquiry from ${lead.name}`,
+      html: `${rows}<p><strong>Message:</strong></p><p>${escapeHtml(lead.message).replace(/\n/g, '<br />')}</p>`,
+    }),
+  });
+}
+
 export async function onRequestPost({ request, env }) {
   const contentType = request.headers.get('content-type') || '';
   let data;
@@ -39,6 +75,12 @@ export async function onRequestPost({ request, env }) {
   )
     .bind(name, email, phone || null, organization || null, message, new Date().toISOString())
     .run();
+
+  try {
+    await sendNotificationEmail(env, { name, email, phone, organization, message });
+  } catch (err) {
+    console.error('Failed to send notification email', err);
+  }
 
   return Response.json({ success: true, name });
 }
