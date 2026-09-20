@@ -1,4 +1,4 @@
-export const companyContent = {
+module.exports.companyContent = {
   name: 'Vaibhava Tech',
   tagline: 'Engineering the Future Through Convergent Technology',
   techStack: ['AI', 'XR', 'Web', 'Cloud', 'Robotics', 'STEM', 'Data'],
